@@ -1,20 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
 func main() {
 	msg := "attack the north wall"
 
 	// determine the size of the square (grid)
 	// based on the input method
-	var sizef float64
-	for int(math.Pow(sizef, 2)) < len(msg) {
-		sizef++
+	var size int
+	for pow(size, 2) < len(msg) {
+		size++
 	}
-	size := int(sizef)
 
 	// initialize a multidementional fixed-sized slice
 	grid := make([][]rune, size)
@@ -41,4 +37,14 @@ func dumpGrid(grid [][]rune) string {
 		}
 	}
 	return outstr
+}
+
+// Not going to bring in math for pow
+// write my own helper function
+func pow(base int, exp int) int {
+	result := 1
+	for i := 1; i <= exp; i++ {
+		result *= base
+	}
+	return result
 }
