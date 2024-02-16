@@ -5,34 +5,14 @@ import "fmt"
 type Grid struct {
 	grid [][]rune
 	size int
-	msg  string
 }
 
-// constructor method
-func (g Grid) new(msg string) Grid {
-	// determine the size of the square (grid)
-	// based on the input method
-	var size int
-	for pow(size, 2) < len(msg) {
-		size++
-	}
-	// initialize a multidementional fixed-sized slice
-	grid := make([][]rune, size)
-	for i := range grid {
-		grid[i] = make([]rune, size)
-	}
-	return Grid{
-		grid: grid,
-		size: size,
-		msg:  msg,
-	}
-}
-
-func (g Grid) populate() {
+// methods
+func (g Grid) populate(msg string) {
 	row := 0
 	col := 0
-	for i := 0; i < len(g.msg); i++ {
-		g.grid[row][col] = rune(g.msg[i])
+	for i := 0; i < len(msg); i++ {
+		g.grid[row][col] = rune(msg[i])
 		col++
 		if col >= g.size {
 			row++
@@ -57,12 +37,22 @@ func (g Grid) transposition() string {
 	return ciphertext
 }
 
-func main() {
-	msg := "attack the north wall"
-	var g Grid
-	g = g.new(msg)
-	g.populate()
-	fmt.Println(g.transposition())
+// functions
+func newGrid(msg string) Grid {
+	var size int
+	for pow(size, 2) < len(msg) {
+		size++
+	}
+
+	grid := make([][]rune, size)
+	for i := range grid {
+		grid[i] = make([]rune, size)
+	}
+
+	return Grid{
+		grid: grid,
+		size: size,
+	}
 }
 
 // Not going to bring in math for pow
@@ -73,4 +63,11 @@ func pow(base int, exp int) int {
 		result *= base
 	}
 	return result
+}
+
+func main() {
+	msg := "attack the north wall"
+	g := newGrid(msg)
+	g.populate(msg)
+	fmt.Println(g.transposition())
 }
