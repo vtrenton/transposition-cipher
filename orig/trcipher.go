@@ -36,32 +36,17 @@ func dumpGrid(grid [][]rune) string {
 }
 
 func populate(msg string, grid [][]rune, size int) {
-	for row := 0; row < size; row++ {
-		// get the range of the substring
-		start := row * size
-		end := (row + 1) * size
-
-		// dont allow read out of bounds
-		var strblock string
-		if start >= len(msg) {
+	row := 0
+	col := 0
+	for i := 0; i < len(msg); i++ {
+		grid[row][col] = rune(msg[i])
+		col++
+		if col >= size {
+			row++
+			col = 0
+		}
+		if row >= size {
 			break
-		} else if end >= len(msg) {
-			strblock = string(msg[start:])
-		} else {
-			strblock = string(msg[start:end])
-		}
-
-		// add padding so there is no index out of bounds
-		if len(strblock) < size {
-			diff := size - len(strblock)
-			for i := 0; i < diff; i++ {
-				strblock += " "
-			}
-		}
-
-		for col := 0; col < size; col++ {
-			grid[row][col] = rune(strblock[col])
-
 		}
 	}
 }

@@ -29,31 +29,17 @@ func (g Grid) new(msg string) Grid {
 }
 
 func (g Grid) populate() {
-	for row := 0; row < g.size; row++ {
-		// get the range of the substring
-		start := row * g.size
-		end := (row + 1) * g.size
-
-		// dont allow read out of bounds
-		var strblock string
-		if start >= len(g.msg) {
+	row := 0
+	col := 0
+	for i := 0; i < len(g.msg); i++ {
+		g.grid[row][col] = rune(g.msg[i])
+		col++
+		if col >= g.size {
+			row++
+			col = 0
+		}
+		if row >= g.size {
 			break
-		} else if end >= len(g.msg) {
-			strblock = string(g.msg[start:])
-		} else {
-			strblock = string(g.msg[start:end])
-		}
-
-		// add padding so there is no index out of bounds
-		if len(strblock) < g.size {
-			diff := g.size - len(strblock)
-			for i := 0; i < diff; i++ {
-				strblock += " "
-			}
-		}
-
-		for col := 0; col < g.size; col++ {
-			g.grid[row][col] = rune(strblock[col])
 		}
 	}
 }
