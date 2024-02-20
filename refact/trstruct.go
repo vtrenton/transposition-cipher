@@ -11,7 +11,7 @@ type Grid struct {
 func (g Grid) populate(msg string) {
 	row := 0
 	col := 0
-	for i := 0; i < len(msg); i++ {
+	for i := range len(msg) {
 		g.grid[row][col] = rune(msg[i])
 		col++
 		if col >= g.size {
@@ -26,15 +26,24 @@ func (g Grid) populate(msg string) {
 
 func (g Grid) transposition() string {
 	var ciphertext string
-	for row := 0; row < g.size; row++ {
-		for col := 0; col < g.size; col++ {
-			// invert the read
+	for row := range g.size {
+		for col := range g.size {
 			if g.grid[col][row] != 0 {
 				ciphertext += string(g.grid[col][row])
 			}
 		}
 	}
 	return ciphertext
+}
+
+func (g *Grid) dumpGrid() string {
+	var outstr string
+	for _, r := range g.grid {
+		for _, c := range r {
+			outstr += string(c)
+		}
+	}
+	return outstr
 }
 
 // functions
@@ -59,15 +68,29 @@ func newGrid(msg string) Grid {
 // write my own helper function
 func pow(base int, exp int) int {
 	result := 1
-	for i := 1; i <= exp; i++ {
+	for range exp {
 		result *= base
 	}
 	return result
 }
 
+// yet another avoided import ;)
+func strip(msg string) string {
+	var msgSlice []rune
+	for _, v := range msg {
+		if v == ' ' {
+			continue
+		}
+		msgSlice = append(msgSlice, v)
+	}
+	return string(msgSlice)
+}
+
 func main() {
 	msg := "attack the north wall"
-	g := newGrid(msg)
-	g.populate(msg)
+	fmtMsg := strip(msg) //remove any spaces
+	g := newGrid(fmtMsg)
+	g.populate(fmtMsg)
+	//fmt.Println(g.dumpGrid()) DEBUG
 	fmt.Println(g.transposition())
 }
