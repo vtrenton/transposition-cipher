@@ -36,15 +36,16 @@ func (g *Grid) transposition() string {
 	return ciphertext
 }
 
-func (g *Grid) dumpGrid() string {
-	var outstr string
-	for _, r := range g.grid {
-		for _, c := range r {
-			outstr += string(c)
-		}
-	}
-	return outstr
-}
+// DEBUG: useful function for debugging but not essential for program functionality
+//func (g *Grid) dumpGrid() string {
+//	var outstr string
+//	for _, r := range g.grid {
+//		for _, c := range r {
+//			outstr += string(c)
+//		}
+//	}
+//	return outstr
+//}
 
 func (g *Grid) newGrid(msg string) {
 	var size int
