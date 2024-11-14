@@ -8,9 +8,9 @@ type Grid struct {
 }
 
 // methods
-func (g Grid) populate(msg string) {
-	row := 0
-	col := 0
+func (g *Grid) populate(msg string) {
+	var row int
+	var col int
 	for i := range len(msg) {
 		g.grid[row][col] = rune(msg[i])
 		col++
@@ -24,7 +24,7 @@ func (g Grid) populate(msg string) {
 	}
 }
 
-func (g Grid) transposition() string {
+func (g *Grid) transposition() string {
 	var ciphertext string
 	for row := range g.size {
 		for col := range g.size {
@@ -46,8 +46,7 @@ func (g *Grid) dumpGrid() string {
 	return outstr
 }
 
-// functions
-func newGrid(msg string) Grid {
+func (g *Grid) newGrid(msg string) {
 	var size int
 	for pow(size, 2) < len(msg) {
 		size++
@@ -57,12 +56,11 @@ func newGrid(msg string) Grid {
 	for i := range grid {
 		grid[i] = make([]rune, size)
 	}
-
-	return Grid{
-		grid: grid,
-		size: size,
-	}
+	g.grid = grid
+	g.size = size
 }
+
+// functions
 
 // Not going to bring in math for pow
 // write my own helper function
@@ -87,10 +85,10 @@ func strip(msg string) string {
 }
 
 func main() {
+	var g Grid
 	msg := "attack the north wall"
 	fmtMsg := strip(msg) //remove any spaces
-	g := newGrid(fmtMsg)
+	g.newGrid(fmtMsg)
 	g.populate(fmtMsg)
-	//fmt.Println(g.dumpGrid()) DEBUG
 	fmt.Println(g.transposition())
 }
