@@ -13,8 +13,9 @@ func (g *Grid) populate(msg string) {
 	var col int
 	for i := range len(msg) {
 		g.grid[row][col] = rune(msg[i])
-		col++
-		if col >= g.size {
+		if col < g.size-1 {
+			col++
+		} else {
 			row++
 			col = 0
 		}
