@@ -5,14 +5,29 @@ import "fmt"
 type Grid struct {
 	grid [][]rune
 	size int
+	msg  string
 }
 
 // methods
-func (g *Grid) populate(msg string) {
+func (g *Grid) newGrid() {
+	var size int
+	for pow(size, 2) < len(g.msg) {
+		size++
+	}
+
+	grid := make([][]rune, size)
+	for i := range grid {
+		grid[i] = make([]rune, size)
+	}
+	g.grid = grid
+	g.size = size
+}
+
+func (g *Grid) populate() {
 	var row int
 	var col int
-	for i := range len(msg) {
-		g.grid[row][col] = rune(msg[i])
+	for i := range len(g.msg) {
+		g.grid[row][col] = rune(g.msg[i])
 		if col < g.size-1 {
 			col++
 		} else {
@@ -48,20 +63,6 @@ func (g *Grid) transposition() string {
 //	return outstr
 //}
 
-func (g *Grid) newGrid(msg string) {
-	var size int
-	for pow(size, 2) < len(msg) {
-		size++
-	}
-
-	grid := make([][]rune, size)
-	for i := range grid {
-		grid[i] = make([]rune, size)
-	}
-	g.grid = grid
-	g.size = size
-}
-
 // functions
 
 // Not going to bring in math for pow
@@ -87,10 +88,11 @@ func strip(msg string) string {
 }
 
 func main() {
-	var g Grid
 	msg := "attack the north wall"
 	fmtMsg := strip(msg) //remove any spaces
-	g.newGrid(fmtMsg)
-	g.populate(fmtMsg)
+	var g Grid
+	g.msg = fmtMsg
+	g.newGrid()
+	g.populate()
 	fmt.Println(g.transposition())
 }
