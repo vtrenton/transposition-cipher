@@ -88,11 +88,11 @@ func strip(msg string) string {
 }
 
 func main() {
-	msg := "attack the north wall"
-	fmtMsg := strip(msg) //remove any spaces
-	var g Grid
-	g.msg = fmtMsg
-	g.newGrid()
-	g.populate()
-	fmt.Println(g.transposition())
+	var g Grid                     // new grid
+	msg := "attack the north wall" // set message
+	fmtMsg := strip(msg)           // remove any spaces
+	g.msg = fmtMsg                 // set the formatted message on struct
+	g.newGrid()                    // initialize empty grid
+	g.populate()                   // populate values of grid
+	fmt.Println(g.transposition()) // transpose grid
 }
