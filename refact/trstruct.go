@@ -9,7 +9,7 @@ type Grid struct {
 }
 
 // methods
-func (g *Grid) newGrid() {
+func (g *Grid) newGrid() *Grid {
 	var size int
 	for pow(size, 2) < len(g.msg) {
 		size++
@@ -21,9 +21,11 @@ func (g *Grid) newGrid() {
 	}
 	g.grid = grid
 	g.size = size
+
+	return g
 }
 
-func (g *Grid) populate() {
+func (g *Grid) populate() *Grid {
 	var row int
 	var col int
 	for i := range len(g.msg) {
@@ -38,6 +40,8 @@ func (g *Grid) populate() {
 			break
 		}
 	}
+
+	return g
 }
 
 func (g *Grid) transposition() string {
@@ -92,7 +96,6 @@ func main() {
 	msg := "attack the north wall" // set message
 	fmtMsg := strip(msg)           // remove any spaces
 	g.msg = fmtMsg                 // set the formatted message on struct
-	g.newGrid()                    // initialize empty grid
-	g.populate()                   // populate values of grid
-	fmt.Println(g.transposition()) // transpose grid
+	outcipher := g.newGrid().populate().transposition()
+	fmt.Println(outcipher)
 }
