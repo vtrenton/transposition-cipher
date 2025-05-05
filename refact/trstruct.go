@@ -57,15 +57,6 @@ func (g *Grid) transposition() string {
 }
 
 // DEBUG: useful function for debugging but not essential for program functionality
-//func (g *Grid) dumpGrid() string {
-//	var outstr string
-//	for _, r := range g.grid {
-//		for _, c := range r {
-//			outstr += string(c)
-//		}
-//	}
-//	return outstr
-//}
 
 // functions
 
@@ -96,6 +87,7 @@ func main() {
 	msg := "attack the north wall" // set message
 	fmtMsg := strip(msg)           // remove any spaces
 	g.msg = fmtMsg                 // set the formatted message on struct
+
 	outcipher := g.newGrid().populate().transposition()
 	fmt.Println(outcipher)
 }
