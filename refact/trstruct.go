@@ -56,8 +56,6 @@ func (g *Grid) transposition() string {
 	return ciphertext
 }
 
-// DEBUG: useful function for debugging but not essential for program functionality
-
 // functions
 
 // Not going to bring in math for pow
