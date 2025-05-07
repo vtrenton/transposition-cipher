@@ -12,12 +12,21 @@ func TestGrid(t *testing.T) {
 }
 
 func TestFunc(t *testing.T) {
-	t.Run("remove all the spaces from the output using strip", func(t *testing.T){
+	t.Run("remove all the spaces from the output using strip", func(t *testing.T) {
 		got := strip("this is a test")
 		want := "thisisatest"
 
 		if got != want {
 			t.Errorf("got %s, want %s", got, want)
+		}
+	})
+
+	t.Run("test the power of a number", func(t *testing.T) {
+		got := pow(5, 2)
+		want := 25
+
+		if got != want {
+			t.Errorf("got %d, want %d", got, want)
 		}
 	})
 }
