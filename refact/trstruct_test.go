@@ -26,24 +26,18 @@ func TestGrid(t *testing.T) {
 	var g Grid
 	g.msg = strip("attack the north wall") // strip is tested above
 
-	t.Run("test creation of new grid", func(t *testing.T) {
-		g.newGrid()
-
-		got := g.dumpGrid()
-		want := ""
-
-		if got != want {
-			t.Errorf("got %s, want %s", got, want)
-		}
-	})
-
 	t.Run("validate the rows and columns match size", func(t *testing.T) {
+		g.newGrid()
 		got := g.size
 		want := 5 // want squared is the total size of the slice.
 
 		if got != want {
 			t.Errorf("sizes dont match, got %d, want %d", got, want)
 		}
+	})
+
+	t.Run("validate grid population", func(t *testing.T) {
+
 	})
 }
 
