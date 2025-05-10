@@ -37,7 +37,23 @@ func TestGrid(t *testing.T) {
 	})
 
 	t.Run("validate grid population", func(t *testing.T) {
+		g.populate()
 
+		got := g.grid[3][2]
+		want := 'l'
+
+		if got != want {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	})
+
+	t.Run("validate chars are correctly placed in grid", func(t *testing.T) {
+		got := g.dumpGrid()
+		want := "attackthenorthwall"
+
+		if got != want {
+			t.Errorf("got %s, want %s - this is a test", got, want)
+		}
 	})
 }
 
