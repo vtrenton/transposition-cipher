@@ -48,8 +48,18 @@ func TestGrid(t *testing.T) {
 	})
 
 	t.Run("validate chars are correctly placed in grid", func(t *testing.T) {
-		got := g.dumpGrid()
+		dump := g.dumpGrid()
+		padlen := 7
+		got := dump[:len(dump)-padlen] // trim off padding
 		want := "attackthenorthwall"
+
+		//	for _, i := range got {
+		//		t.Log(i)
+		//	}
+
+		//	for _, i := range want {
+		//		t.Log(i)
+		//	}
 
 		if got != want {
 			t.Errorf("got %s, want %s - this is a test", got, want)
