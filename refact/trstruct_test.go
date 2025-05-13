@@ -65,6 +65,15 @@ func TestGrid(t *testing.T) {
 			t.Errorf("got %s, want %s - this is a test", got, want)
 		}
 	})
+
+	t.Run("transpose the grid", func(t *testing.T) {
+		got := g.transposition()
+		want := "akoattrlthtlaehcnw"
+
+		if got != want {
+			t.Errorf("got %s, want %s", got, want)
+		}
+	})
 }
 
 func (g *Grid) dumpGrid() string {
