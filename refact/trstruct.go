@@ -83,8 +83,7 @@ func strip(msg string) string {
 func main() {
 	var g Grid                     // new grid
 	msg := "attack the north wall" // set message
-	g.msg = strip(msg)             // remove any spaces
-	// then set the formatted message on struct
+	g.msg = strip(msg)             // remove spaces and put on struct
 
 	// initialize the grid, populate it, then transposition it.
 	outcipher := g.newGrid().populate().transposition()
